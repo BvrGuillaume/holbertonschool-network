@@ -1,0 +1,101 @@
+# What Happens When You Type `https://www.google.com` in Your Browser and Press Enter
+
+When you type `https://www.google.com` in your browser and hit Enter, a series of complex and fascinating processes take place behind the scenes to ensure that you are connected to Google’s web services. In this blog post, we will walk through each step of this process, from DNS resolution to accessing the database. By understanding the underlying technologies, you’ll gain a deeper appreciation for how the web works. Let’s break it down.
+
+---
+
+### 1. **DNS Request**
+
+The first thing your browser does when you type a URL is initiate a DNS (Domain Name System) request. The URL you’ve typed is a human-readable domain name (`www.google.com`), but your computer doesn’t understand domain names directly. It needs an IP address (a numerical address) to establish a connection.
+
+- **Step 1:** Your computer checks if the IP address of `www.google.com` is already cached in the local DNS resolver (stored from previous visits).
+- **Step 2:** If not found locally, your computer queries a DNS resolver (usually provided by your ISP or a third-party DNS service like Google DNS or Cloudflare DNS).
+- **Step 3:** The resolver sends the request to authoritative DNS servers, which have the actual mappings between domain names and IP addresses. These servers will return the IP address of `www.google.com` (e.g., `172.217.22.14`).
+
+Once your computer receives the IP address, it can now communicate with the server hosting Google’s website.
+
+---
+
+### 2. **TCP/IP Connection**
+
+Now that your computer knows the IP address of `www.google.com`, it needs to establish a connection using the **Transmission Control Protocol (TCP)**, which is part of the Internet Protocol suite (**TCP/IP**).
+
+- **Step 1:** Your computer initiates a TCP handshake. This is a three-step process:
+  1. **SYN:** Your computer sends a Synchronize (SYN) message to the server at `www.google.com`.
+  2. **SYN-ACK:** Google’s server acknowledges the request by sending a SYN-ACK message.
+  3. **ACK:** Your computer sends an ACK message back to the server, establishing the connection.
+  
+- **Step 2:** After the handshake, the connection is now open, and your computer can send and receive data over this TCP connection.
+
+---
+
+### 3. **Firewall**
+
+Next, network firewalls come into play. Firewalls are security systems designed to monitor and control incoming and outgoing network traffic based on predefined security rules. They ensure that only authorized traffic is allowed to pass through.
+
+- **Step 1:** When you try to establish a TCP connection with Google, your request passes through multiple firewalls along the way (on both your network and Google’s servers). These firewalls ensure that the incoming request is legitimate.
+- **Step 2:** Firewalls inspect the request to ensure it’s safe and that you are authorized to access the requested content. They also help block malicious traffic, such as from hackers or denial-of-service (DoS) attacks.
+
+---
+
+### 4. **HTTPS/SSL**
+
+Once the TCP connection is established, your browser communicates with Google using **HTTPS** (HyperText Transfer Protocol Secure). HTTPS is the secure version of HTTP and ensures the integrity and privacy of the data exchanged between your browser and Google’s web server. This is achieved through **SSL/TLS** encryption.
+
+- **Step 1:** Your browser sends a request to the server to initiate an SSL handshake. This handshake involves your browser and Google’s server exchanging encryption keys and agreeing on a cipher suite.
+- **Step 2:** Google’s server sends its SSL certificate to your browser. This certificate contains its public key and proves the authenticity of the server (confirming it’s really Google).
+- **Step 3:** After validating the certificate, your browser and the server exchange session keys to establish an encrypted connection. All data exchanged moving forward is encrypted, ensuring that sensitive information (such as login credentials or personal data) remains secure.
+
+---
+
+### 5. **Load Balancer**
+
+Once your browser has established a secure HTTPS connection to Google’s servers, the request is routed to a **load balancer**. A load balancer is responsible for distributing incoming traffic across multiple web servers to prevent any single server from being overwhelmed by too many requests.
+
+- **Step 1:** The load balancer receives your request and determines the best server to handle it. This can be based on various algorithms such as round-robin (distributing requests evenly), least connections (sending requests to the server with the fewest active connections), or even more advanced methods.
+- **Step 2:** The load balancer routes the request to one of Google’s many web servers that can process your request.
+
+---
+
+### 6. **Web Server**
+
+Once your request reaches the appropriate web server, that server’s job is to handle the request and serve the web content (HTML, CSS, JavaScript, images, etc.). The web server acts as an intermediary between the client (your browser) and the application server.
+
+- **Step 1:** The web server processes the request. If it’s a static resource like an image or a CSS file, the web server will fetch it from the disk and send it to your browser.
+- **Step 2:** If the request is dynamic (for example, accessing a Google search page or logging in), the web server forwards the request to the appropriate application server.
+
+---
+
+### 7. **Application Server**
+
+The **application server** is where the logic for your application runs. For Google, this is where search queries are processed, login information is validated, or other dynamic content is generated. The application server communicates with the database to retrieve or store information.
+
+- **Step 1:** The web server forwards your request to the application server, passing along any necessary data (such as your search query or credentials).
+- **Step 2:** The application server runs the logic and may interact with Google’s database to retrieve or store data, such as pulling up your search results or user information.
+- **Step 3:** After processing, the application server sends a response back to the web server with the generated content (for example, the results of a Google search).
+
+---
+
+### 8. **Database**
+
+Google’s **database** stores all the data that powers its services. For a search engine like Google, this includes indexing web pages, storing user information, and caching results to ensure fast response times.
+
+- **Step 1:** When the application server needs data, it queries the database. For example, it might look up search results or retrieve user profile information.
+- **Step 2:** The database returns the requested data to the application server.
+- **Step 3:** The application server then processes the data and sends it back to the web server, which in turn sends the content to your browser.
+
+---
+
+### Conclusion
+
+From typing `https://www.google.com` in your browser to seeing the results displayed, a lot of work happens behind the scenes. DNS resolution, TCP/IP communication, security via HTTPS/SSL, load balancing, and interaction with web servers, application servers, and databases all play vital roles in delivering the Google service to your screen.
+
+By understanding these processes, you gain a deeper appreciation for the complexity and efficiency of modern web systems. Whether you're working as a software engineer, system administrator, or developer, having a grasp of these foundational technologies will serve you well in any role.
+
+---
+
+If you're interested in reading more or exploring other aspects of web technologies, feel free to connect with me on LinkedIn or Medium!
+
+---
+
+This blog post is a detailed explanation of the web request cycle, showcasing various technologies involved in handling an HTTPS request to Google. I recommend publishing this on your Medium or LinkedIn platform, as it will demonstrate your depth of knowledge and technical understanding in web architecture.
